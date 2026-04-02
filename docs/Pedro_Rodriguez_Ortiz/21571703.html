@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Insurance Quote – Pedro Rodriguez Ortiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple-dark:#5E2878; --purple-mid:#8B3FA8; --purple-light:#F0E6F6;
+    --green-dark:#2E7D32;  --green-mid:#43A047;  --green-light:#E8F5E9;
+    --teal-dark:#00695C;   --teal-mid:#00897B;   --teal-light:#E0F2F1;
+    --grey-dark:#455A64;   --grey-mid:#607D8B;
+    --white:#FFFFFF;       --text:#263238;
+  }
+  body {
+    font-family:'DM Sans',sans-serif;
+    background:#F4F0FA;
+    color:var(--text);
+    min-height:100vh;
+    padding:30px 20px 60px;
+  }
+  .page-wrapper {
+    max-width:780px; margin:0 auto;
+    background:white; border-radius:20px; overflow:hidden;
+    box-shadow:0 30px 80px rgba(94,40,120,.18);
+  }
+  /* HEADER */
+  .header {
+    background:linear-gradient(135deg,var(--purple-dark) 0%,#8B3FA8 60%,#B06FCC 100%);
+    padding:40px 48px 30px; position:relative; overflow:hidden;
+  }
+  .header::before { content:''; position:absolute; top:-40px; right:-40px; width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,.06); }
+  .header::after  { content:''; position:absolute; bottom:-60px; left:30%; width:160px; height:160px; border-radius:50%; background:rgba(255,255,255,.04); }
+  .header-logo { font-family:'Playfair Display',serif; color:rgba(255,255,255,.5); font-size:11px; letter-spacing:4px; text-transform:uppercase; margin-bottom:18px; }
+  .header-title { font-family:'Playfair Display',serif; color:white; font-size:32px; font-weight:900; line-height:1.1; margin-bottom:6px; }
+  .header-title span { color:#C9F0A0; }
+  .header-subtitle { color:rgba(255,255,255,.65); font-size:13px; font-weight:300; }
+
+  /* CLIENT STRIP */
+  .client-strip { background:linear-gradient(90deg,#F8F4FC,white); border-bottom:1px solid #EDE7F6; padding:20px 48px; display:flex; align-items:center; justify-content:space-between; }
+  .client-info  { display:flex; align-items:center; gap:16px; }
+  .client-avatar { width:48px; height:48px; background:linear-gradient(135deg,var(--purple-dark),var(--purple-mid)); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-family:'Playfair Display',serif; font-size:20px; font-weight:700; flex-shrink:0; }
+  .client-name    { font-size:17px; font-weight:600; color:var(--purple-dark); }
+  .client-details { font-size:12px; color:var(--grey-mid); margin-top:2px; }
+  .premium-badge  { background:linear-gradient(135deg,var(--grey-dark),var(--grey-mid)); color:white; border-radius:12px; padding:10px 20px; text-align:center; }
+  .premium-badge .amount { font-family:'Playfair Display',serif; font-size:26px; font-weight:900; letter-spacing:-.5px; }
+  .premium-badge .label  { font-size:10px; letter-spacing:2px; text-transform:uppercase; opacity:.8; margin-top:1px; }
+
+  /* CONTENT */
+  .content { padding:32px 48px 40px; display:flex; flex-direction:column; gap:24px; }
+
+  /* CARDS */
+  .card { border-radius:16px; overflow:hidden; position:relative; }
+  .card-inner { display:flex; align-items:stretch; min-height:130px; }
+
+  /* PUZZLE ICON */
+  .card-icon { width:100px; flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:20px 10px; font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; text-align:center; }
+  .puzzle-svg { width:48px; height:48px; }
+
+  /* CARD TEXT */
+  .card-left { flex:1; padding:22px 24px; display:flex; flex-direction:column; justify-content:center; }
+  .card-heading { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; margin-bottom:6px; line-height:1.2; }
+  .card-body    { font-size:13px; line-height:1.5; font-weight:300; opacity:.85; }
+
+  /* DEATH */
+  .card-death .card-icon  { background:var(--purple-dark); color:rgba(255,255,255,.9); }
+  .card-death .card-left  { background:var(--purple-light); color:var(--purple-dark); }
+  .card-death .card-right { background:linear-gradient(135deg,var(--purple-dark),var(--purple-mid)); color:white; min-width:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; text-align:center; }
+  .death-label  { font-size:11px; letter-spacing:2px; text-transform:uppercase; opacity:.7; margin-bottom:6px; }
+  .death-amount { font-family:'Playfair Display',serif; font-size:38px; font-weight:900; letter-spacing:-1px; line-height:1; }
+  .death-sub    { font-size:11px; opacity:.6; margin-top:6px; }
+
+  /* CASH */
+  .card-cash { background:var(--green-light); }
+  .card-cash .card-icon  { background:var(--green-dark); color:rgba(255,255,255,.9); min-height:120px; }
+  .card-cash .card-left .card-heading { color:var(--green-dark); }
+  .card-cash .card-left { color:var(--green-dark); }
+  .chart-area  { flex:2; padding:18px 24px 22px; display:flex; flex-direction:column; gap:6px; }
+  .chart-title { font-size:11px; color:var(--grey-mid); letter-spacing:.5px; text-align:right; margin-bottom:8px; }
+  .bar-chart   { display:flex; align-items:flex-end; gap:20px; justify-content:center; height:100px; }
+  .bar-col     { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .bar-val     { font-size:12px; font-weight:600; color:var(--green-dark); white-space:nowrap; }
+  .bar-rect    { background:linear-gradient(180deg,var(--green-mid),var(--green-dark)); border-radius:6px 6px 0 0; width:52px; box-shadow:0 4px 12px rgba(46,125,50,.3); position:relative; }
+  .bar-rect::after { content:''; position:absolute; top:0; left:4px; right:4px; height:6px; background:rgba(255,255,255,.25); border-radius:4px 4px 0 0; }
+  .bar-age     { font-size:11px; color:var(--grey-mid); font-weight:500; }
+  .bar-axis-label { font-size:10px; color:var(--grey-mid); letter-spacing:.5px; text-align:center; margin-top:2px; }
+
+  /* ILL */
+  .card-ill { background:var(--teal-light); }
+  .card-ill .card-icon  { background:var(--teal-dark); color:rgba(255,255,255,.9); }
+  .card-ill .card-left .card-heading { color:var(--teal-dark); }
+  .card-ill .card-left { color:var(--teal-dark); }
+  .benefits-area  { flex:2; padding:18px 24px 22px; }
+  .benefits-title { font-size:11px; color:var(--grey-mid); text-align:center; margin-bottom:12px; line-height:1.4; }
+  .benefits-table { width:100%; border-collapse:collapse; }
+  .benefits-table tr { border-bottom:1px solid rgba(0,105,92,.1); }
+  .benefits-table tr:last-child { border-bottom:none; }
+  .benefits-table td { padding:7px 4px; font-size:12.5px; }
+  .benefits-table td:first-child { color:var(--text); font-weight:400; width:55%; }
+  .benefits-table td:last-child  { font-weight:700; color:var(--teal-dark); text-align:right; white-space:nowrap; }
+  .highlight-row td { background:rgba(0,105,92,.06); }
+
+  /* DIVIDER */
+  .section-divider { display:flex; align-items:center; gap:14px; margin:4px 0; }
+  .section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,#DDD,transparent); }
+  .divider-dot { width:6px; height:6px; border-radius:50%; background:var(--purple-mid); opacity:.4; }
+
+  /* FOOTER */
+  .footer      { background:linear-gradient(90deg,#F8F4FC,white); border-top:1px solid #EDE7F6; padding:20px 48px; display:flex; align-items:center; justify-content:space-between; }
+  .footer-note { font-size:10px; color:var(--grey-mid); line-height:1.6; max-width:420px; }
+  .footer-note sup { font-size:8px; }
+  .footer-brand { font-family:'Playfair Display',serif; font-size:13px; color:var(--purple-dark); opacity:.6; text-align:right; }
+  .footer-date  { font-size:10px; color:var(--grey-mid); text-align:right; margin-top:2px; }
+
+  /* PRINT */
+  @media print {
+    body { background:white!important; padding:0!important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .page-wrapper { box-shadow:none!important; border-radius:0!important; max-width:100%!important; }
+    .header,.card-death .card-icon,.card-death .card-right,.card-cash .card-icon,.card-ill .card-icon,.bar-rect {
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    }
+  }
+  @page { margin:.5cm; size:A4; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <div class="header">
+    <div class="header-logo">IUL Platinum · Life Insurance</div>
+    <div class="header-title">My Planned <span>Life Insurance</span> Offers</div>
+    <div class="header-subtitle">Personalized illustration prepared exclusively for you</div>
+  </div>
+
+  <div class="client-strip">
+    <div class="client-info">
+      <div class="client-avatar">P</div>
+      <div>
+        <div class="client-name">Pedro Rodriguez Ortiz</div>
+        <div class="client-details">pro.pedro0413@gmail.com &nbsp;·&nbsp; +573228854498 &nbsp;·&nbsp; Age 33</div>
+      </div>
+    </div>
+    <div class="premium-badge">
+      <div class="amount">$50</div>
+      <div class="label">Monthly Premium</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- SECTION 1: DIE TOO SOON -->
+    <div class="card card-death">
+      <div class="card-inner">
+        <div class="card-icon">
+          <svg class="puzzle-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10h16v6a6 6 0 0 1 0 12v6H10v-6a6 6 0 0 1 0-12Z" fill="rgba(255,255,255,.35)"/>
+            <path d="M30 10h16v6a6 6 0 0 1 0 12v6H30v-6a6 6 0 0 1 0-12Z" fill="rgba(255,255,255,.15)"/>
+          </svg>
+          Die<br>Too Soon
+        </div>
+        <div class="card-left">
+          <div class="card-heading">If I Die Tomorrow...</div>
+          <div class="card-body">Those I have chosen<br>will receive:</div>
+        </div>
+        <div class="card-right">
+          <div class="death-label">Death Benefit</div>
+          <div class="death-amount">$53,362</div>
+          <div class="death-sub">Lump Sum</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"><div class="divider-dot"></div></div>
+
+    <!-- SECTION 2: LIVE TOO LONG -->
+    <div class="card card-cash">
+      <div class="card-inner">
+        <div class="card-icon">
+          <svg class="puzzle-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10h16v6a6 6 0 0 1 0 12v6H10v-6a6 6 0 0 1 0-12Z" fill="rgba(255,255,255,.35)"/>
+            <path d="M30 10h16v6a6 6 0 0 1 0 12v6H30v-6a6 6 0 0 1 0-12Z" fill="rgba(255,255,255,.15)"/>
+          </svg>
+          Live<br>Too Long
+        </div>
+        <div class="card-left">
+          <div class="card-heading">If I Need Cash...</div>
+          <div class="card-body">I can take a loan or withdrawal<br>from my policy's Cash Value<sup>1</sup>.</div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-title">The projected Cash Value for my policy is:</div>
+          <div class="bar-chart">
+            <div class="bar-col">
+              <div class="bar-val">$3,955</div>
+              <div class="bar-rect" style="height:27px;"></div>
+              <div class="bar-age">Age 43</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">$13,411</div>
+              <div class="bar-rect" style="height:90px;"></div>
+              <div class="bar-age">Age 53</div>
+            </div>
+          </div>
+          <div class="bar-axis-label">Attained Age</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"><div class="divider-dot"></div></div>
+
+    <!-- SECTION 3: BECOME ILL -->
+    <div class="card card-ill">
+      <div class="card-inner">
+        <div class="card-icon">
+          <svg class="puzzle-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10h16v6a6 6 0 0 1 0 12v6H10v-6a6 6 0 0 1 0-12Z" fill="rgba(255,255,255,.35)"/>
+            <path d="M30 10h16v6a6 6 0 0 1 0 12v6H30v-6a6 6 0 0 1 0-12Z" fill="rgba(255,255,255,.15)"/>
+            <path d="M10 34h16v6a6 6 0 0 1 0 12v6H10v-6a6 6 0 0 1 0-12Z" fill="rgba(255,255,255,.15)"/>
+          </svg>
+          Become<br>Ill
+        </div>
+        <div class="card-left">
+          <div class="card-heading">If I Become Ill...</div>
+          <div class="card-body">I can access a portion<br>of my Death Benefit.</div>
+        </div>
+        <div class="benefits-area">
+          <div class="benefits-title">Projected Accelerated Benefit Rider<sup>2</sup> values at age 65:</div>
+          <table class="benefits-table">
+            <tr><td>Terminal Illness Benefit:</td><td>$78,323 Lump Sum</td></tr>
+            <tr><td>Chronic Illness Benefit:</td><td>$1,347 Per Month</td></tr>
+            <tr class="highlight-row"><td>Critical Illness Benefit:</td><td>Up to $72,449 Lump Sum</td></tr>
+            <tr class="highlight-row"><td>Critical Injury Benefit:</td><td>Up to $72,449 Lump Sum</td></tr>
+            <tr><td>Alzheimer's Disease Benefit:</td><td>$68,533 Lump Sum</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-note">
+      <sup>1</sup> Loans and withdrawals may reduce the death benefit and cash value.<br>
+      <sup>2</sup> Accelerated Benefit Rider values are projections and are not guaranteed.<br>
+      This illustration is not a contract. Values are for informational purposes only.
+    </div>
+    <div>
+      <div class="footer-brand">IUL Platinum</div>
+      <div class="footer-date">Prepared on April 2, 2026</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
